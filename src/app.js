@@ -116,6 +116,7 @@ app.get("/messages", async(req, res) => {
     const { limit } = req.query;
     const messageLimit = limit;
     
+    
     try {
         const messages = await db.collection("messages").find({ $or: [ { to: user }, { to: "Todos" }, {from: user} ] }).toArray();
         
@@ -123,8 +124,8 @@ app.get("/messages", async(req, res) => {
             return res.send(messages);
         } 
         
-        if(!Number.isInteger(messageLimit) || messageLimit < 0){
-            return res.sendStatus(422);
+        if(Number.isInteger(messageLimit) || messageLimit < 0){
+            return res.status(422).send('abo');
         } 
         
         const limitedMessages = messages.slice(-messageLimit);
