@@ -117,7 +117,7 @@ app.get("/messages", async(req, res) => {
     const messageLimit = limit;
     
     try {
-        const messages = await db.collection("messages").find({ $or: [ { to: user }, { to: "Todos" }, {from: user}, {type: "message"} ] }).toArray();
+        const messages = await db.collection("messages").find({ $or: [ { to: user }, { to: "Todos" }, {from: user} ] }).toArray();
         
         if(!messageLimit){
             return res.send(messages);
